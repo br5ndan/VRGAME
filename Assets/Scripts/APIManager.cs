@@ -15,7 +15,7 @@ public class ProgressPayload
 
 public class APIManager : MonoBehaviour
 {
-    public string progressUrl = "http://localhost:8000/api/training/progress";
+    public string progressUrl = "http://localhost:8000/api/sessions/";
 
     public void SendScenarioCompleted(string scenarioId, int scenarioIndex)
     {
@@ -35,7 +35,8 @@ public class APIManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(payload);
 
-        UnityWebRequest request = new UnityWebRequest(progressUrl, "POST");
+        string url = progressUrl + LaunchArgsManager.SessionId + "/progress";
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
         byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
 
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
